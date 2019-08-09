@@ -133,10 +133,15 @@ class RepeatUntil(Repeat):
 if __name__ == "__main__":
     import json
 
+    class Int(Type):
+        def __init__(self):
+            val = Value(FutureInt('4'))
+            super().__init__('Int', [val])
+
     t1 = Type('mytype', [Value(FutureInt('1')), Value(FutureInt('3'))])
     t2 = RepeatCount(t1, FutureInt('3'))
 
-    t3 = OptionalType('opttype', [Value(FutureInt('4'))], FutureBool('true'))
+    t3 = OptionalType('opttype', [Int()], FutureBool('true'))
     t4 = Select([t3, t1])
 
     t5 = Type('magic', [Value(FutureInt('2'))])
